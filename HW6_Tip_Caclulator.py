@@ -43,7 +43,7 @@ def get_int(prompt):
 billAmount = get_float("How much was your bill? $ ")
 print()
 # tip percentage
-tipAmount = get_float("What percentage would you like to tip? ")
+tipAmount = get_float("What percentage would you like to tip? % ")
 print()
 # splitting bill
 splitBill = get_int("How many people will be paying for the bill (split evenly)? ")
