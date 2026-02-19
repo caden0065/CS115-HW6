@@ -7,35 +7,65 @@ and how you should split the bill
 
 # start message
 
-print('Hello. To calculate your tip, input your information when prompted.')
-print('For correct use, make sure to only enter digits. Do not spell out the answers.')
+print("-- Tip Calculator --")
+print("Hello. To calculate your tip, input your information when prompted.")
+print("For correct use, make sure to only enter digits. Do not spell out the answers.")
 print()
 
 # input
 
+# handle incorrect input for bill amount and tip amount
+def get_float(prompt):
+    while True:
+        user = input(prompt).strip()
+        try:
+            return float(user)
+        except ValueError:
+            print()
+            print("Please type a number (example: 12.50).")
+
+# handle incorrect input for splitting bill
+def get_int(prompt):
+    while True:
+        user = input(prompt).strip()
+        try:
+            value = int(user)
+            if value < 1:
+                print()
+                print("Please enter a number equal to or higher than 1.")
+                continue
+            return value
+        except ValueError:
+            print()
+            print("Please type a whole number (example: 2).")
+
 # bill total
-billTotal = float(input("What was your total bill total? $ "))
+billAmount = get_float("How much was your bill? $ ")
 print()
 # tip percentage
-tipAmount = float(input("What percentage would you like to tip? "))
+tipAmount = get_float("What percentage would you like to tip? ")
 print()
 # splitting bill
-splitBill = int(input("How many people will be paying for the bill (split evenly)? "))
+splitBill = get_int("How many people will be paying for the bill (split evenly)? ")
 
 # calculations
+    # (round() rounded it to 2 decimals)
 
 # amount to tip
-tipTotal = round((tipAmount / 100) * billTotal, 2) # rounded to 2 decimals
+tipTotal = round((tipAmount / 100) * billAmount, 2)
 # total bill (with tip)
-newBillTotal = tipTotal + billTotal
+newBillTotal = round(tipTotal + billAmount, 2)
 # splitting the bill per person
-splitTotal = newBillTotal / splitBill
+splitTotal = round(newBillTotal / splitBill, 2)
 
 # output
+    # (.2f keeps 2 decimal places even if 0)
 
 print()
-# tip total with new bill amount
-print(f'Your tip will be ${tipTotal}, that means your new bill will be ${newBillTotal}.')
-# split bill costs
-print(f'To split the bill between {splitBill} people, you will pay ${splitTotal} per person.')
-
+print()
+print("-- Bill Summary --")
+print()
+print(f"Bill: ${billAmount:.2f}")
+print(f"Tip: ${tipTotal:.2f}")
+print(f"Total: ${newBillTotal:.2f}")
+print(f"Split {splitBill} ways: ${splitTotal:.2f}")
